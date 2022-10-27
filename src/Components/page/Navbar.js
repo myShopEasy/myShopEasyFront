@@ -54,7 +54,7 @@ export default class Menu extends React.Component {
         super(props);
         this.state = {
             usuario: "Admin",
-            contador: this.contador(),
+            /*contador: this.contador(),*/
             show: false,
         };
     }

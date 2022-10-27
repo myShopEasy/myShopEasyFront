@@ -8,7 +8,7 @@ export default class Footer extends React.Component {
     }
     render() {
         return (
-            <div class="mx-auto container-fluid" id="pie">
+            <div className="mx-auto container-fluid" id="pie">
                 <p>
                     Este producto es desarrollado por el{" "}
                     <a
