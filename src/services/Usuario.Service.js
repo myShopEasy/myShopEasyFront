@@ -1,6 +1,6 @@
 import httpClient from "./httpClient";
 
-const END_POINT =  "/api/usuarios";
+const END_POINT =  "http://localhost:9090/api/usuarios";
 
 const VALIDAR = "/api/validarUsuario"
 

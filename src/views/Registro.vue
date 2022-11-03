@@ -107,6 +107,7 @@
             :mensaje="ConfirMensaje"
             :snackbar="ConfirShow"
             :close="cerrarMensaje"
+            v-if="ConfirShow"
           ></ConfirMensaje>
           <MensajeError
             :mensaje="MensajeError"
