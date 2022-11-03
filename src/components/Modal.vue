@@ -16,7 +16,8 @@
         <v-card-text>
           <div class="text-h5 pa-6">
             Proyecto desarrollado Por: <br />
-            Maria Paula Useche<br />
+            Maria Alejandra Reyes Gonzalez<br />
+            Juan Esteban Gomez Roa <br />
             Maria Jose Villalba Lozano<br />
             Jorge Eliecer Rojas Quiñones<br />            
           </div>
