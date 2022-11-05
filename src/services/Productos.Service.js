@@ -15,9 +15,9 @@ const insertProductoConFoto = (producto) => httpClient.post(END_POINT, producto,
     }
 }); 
 
-const updateProducto = (name, producto) => httpClient.put(END_POINT+"/ "+ name, producto); 
+const updateProducto = (id, producto) => httpClient.put(END_POINT+"/ "+ id, producto); 
 
-const updateProductoConFoto = (id, producto) => httpClient.patch(END_POINT + "/" + id + "/foto", producto, {
+const updateProductoConFoto = (id, producto) => httpClient.put(END_POINT + "/" + id + "/foto", producto, {
     headers: {
         "Content-Type":"multipart/form-data"
     }
