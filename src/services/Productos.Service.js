@@ -1,6 +1,6 @@
 import httpClient from "./httpClient";
 
-const END_POINT =  "http://localhost:9090/api/productos";
+var END_POINT =  "http://localhost:9090/api/productos";
 
 
 const getAllProductos = () => httpClient.get(END_POINT+"/getAll"); 
