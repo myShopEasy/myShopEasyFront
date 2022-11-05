@@ -238,7 +238,7 @@ export default {
           producto.append("precio", this.precio);
           producto.append("especificacion", this.especificacion);
           producto.append("foto", this.foto);
-          request = updateProductoConFoto(this.id, producto);
+          request = updateProductoConFoto(this.name, producto);
       } else {
         const producto = {
           id: this.id,
@@ -247,7 +247,7 @@ export default {
           foto: this.fotoURL,
           especificacion: this.especificacion,
         };
-        request = updateProducto(this.id, producto);
+        request = updateProducto(this.name, producto);
       }
 
       request

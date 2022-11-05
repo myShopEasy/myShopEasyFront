@@ -2,20 +2,15 @@ import httpClient from "./httpClient";
 
 const END_POINT =  "http://localhost:9090/api/usuarios";
 
-const VALIDAR = "/api/validarUsuario"
 
 const validateUser = (usuario, contraseña) => {
-    const user = {
-        "usuario" : usuario,
-        "contraseña": contraseña
-    };
-    return httpClient.post(VALIDAR, user); 
+    return  httpClient.get(END_POINT+"/login/"+usuario+"/"+contraseña)
 }
 
 
-const getAllUsuario = () => httpClient.get(END_POINT); 
+const getAllUsuario = () => httpClient.get(END_POINT+"/getAll"); 
 
-const getUsuario = (usuario) => httpClient.get(END_POINT + "/" + usuario);
+const getUsuario = (usuario) => httpClient.get(END_POINT+"/findByName/" + usuario);
 
 const insertUsuario = (usuario) => httpClient.post(END_POINT, usuario); 
 

@@ -158,17 +158,21 @@ export default {
     };
   },
   mounted() {
-    const usuarioStorage = sessionStorage.getItem("usuario");
-    if (usuarioStorage != undefined) {
-      getUsuario(usuarioStorage)
+    const usuario = sessionStorage.getItem("usuario");
+    if (usuario != undefined) {
+      getUsuario(usuario)
         .then((response) => {
           const usuario = response.data;
-          this.nombre = usuario.nombre;
-          this.apellido = usuario.apellido;
-          this.usuario = usuario.usuario;
-          this.correo = usuario.correo;
-          this.celular = usuario.celular;
-          this.direccion = usuario.direccion;
+          for(let i = 0 ; i < usuario.length;i++){
+            this.nombre = usuario[i].nombre;
+          this.apellido = usuario[i].apellido;
+          this.usuario = usuario[i].usuario;
+          this.correo = usuario[i].correo;
+          this.celular = usuario[i].celular;
+          this.direccion = usuario[i].direccion;
+
+          }
+          
         })
         .catch(() => this.abrirError("Datos no encontrados"));
     }

@@ -183,11 +183,12 @@ export default {
     },
   },
   mounted() {
-    const id = this.$route.params.id;
-    if (id != undefined) {
-      getProducto(id)
+    const name= this.$route.params.name;
+    if (name != undefined) {
+      getProducto(name)
         .then((response) => {
           this.producto = response.data;
+          console.log(this.producto)
         })
         .catch(() => {
           this.producto = {};

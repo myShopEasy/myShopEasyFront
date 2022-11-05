@@ -102,7 +102,7 @@ export default {
     validar() {
       validateUser(this.user, this.password)
         .then((response) => {
-          const user = response.data;
+          let user = response.data;
           sessionStorage.setItem("usuario", user.usuario);
           sessionStorage.setItem("sesion", true);
           this.abrirMensaje("Se ha iniciado sesión");
