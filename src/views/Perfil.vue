@@ -75,10 +75,10 @@
                   <input type="text" class="form-control" v-model="direccion" placeholder="Cl 0 #0-0" />
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-9 text-secondary text-center">
-                  <button class="btn btn-primary px-4 mr-4" @click="actualizar()">Guardar Cambios</button>
+              <div class="row mb-4">
+                <div class=" text-secondary text-center d-flex flex-row-reverse">
                   <button class="btn btn-secondary px-4" @click="cancelar()">Cancelar</button>
+                  <button class="btn btn-primary px-4 mr-4" @click="actualizar()">Guardar Cambios</button>
                 </div>
               </div>
             </div>
@@ -93,7 +93,7 @@
 
 <script>
 
-import { getUsuario, updateUsuario } from "../services/Usuario.Service.js";
+import { getUsuario, updateUsuario} from "../services/Usuario.Service.js";
 import ConfirMensaje from "../../src/components/ConfirMensaje.vue";
 import MensajeError from "../../src/components/MensajeError.vue";
 
