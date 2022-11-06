@@ -65,7 +65,7 @@
             <v-btn
               color="success"
               class="mx-2"
-              @click="editarProducto(producto.id)"
+              @click="editarProducto(producto.nombre)"
               >Editar</v-btn
             >
             <v-btn
@@ -144,6 +144,7 @@ export default {
 
   methods: {
     editarProducto(id) {
+      console.log(id)
       this.$router.push(`/editarproducto/${id}`);
     },
     eliminarProducto(id) {

@@ -7,6 +7,8 @@ const getAllProductos = () => httpClient.get(END_POINT+"/getAll");
 
 const getProducto = (name) => httpClient.get(END_POINT+"/findByName/" + name);
 
+const getProduc = (id) => httpClient.get(END_POINT+"/" + id);
+
 const insertProducto = (producto) => httpClient.post(END_POINT, producto); 
 
 const insertProductoConFoto = (producto) => httpClient.post(END_POINT, producto, {
@@ -28,6 +30,7 @@ const deleteProducto = (id) => httpClient.delete(END_POINT + "/" + id);
 
 
 export{
+    getProduc,
     getAllProductos,
     insertProducto,
     insertProductoConFoto,

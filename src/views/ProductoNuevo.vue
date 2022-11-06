@@ -8,112 +8,36 @@
         <v-col cols="12" sm="12" md="12">
           <v-form class="mx-auto" ref="form">
             <h2 class="text-center mb-5">{{ title }}</h2>
-            <v-text-field
-              v-model="nombre"
-              label="Producto *"
-              placeholder="Ingrese el nombre del producto"
-              required
-              filled
-              dense
-              :rules="rules"
-            ></v-text-field>
-            <v-text-field
-              v-model="id"
-              label="Código *"
-              placeholder="Ingrese el código"
-              filled
-              dense
-              required
-              :rules="rules"
-            ></v-text-field>
-            <v-text-field
-              v-model="precio"
-              label="Precio *"
-              placeholder="Ingrese el precio"
-              filled
-              dense
-              required
-              :rules="rules"
-              prefix="$"
-            ></v-text-field>
-            <v-file-input
-              v-show="show"
-              accept="image/png, image/jpeg, image/bmp"
-              label="Subir archivo"
-              prepend-icon="mdi-upload"
-              append-outer-icon="mdi-paperclip"
-              filled
-              v-model="foto"
-              show-size
-              dense
-              truncate-length="15"
-              @click:append-outer="show = !show"
-            ></v-file-input>
-            <v-text-field
-              v-show="!show"
-              prepend-icon="mdi-paperclip"
-              append-outer-icon="mdi-upload"
-              v-model="fotoURL"
-              label="URL Imagen"
-              placeholder="Ingrese la URL"
-              filled
-              required
-              dense
-              autofocus
-              @click:append-outer="show = !show"
-              clearable
-            ></v-text-field>
-            <v-text-field
-              v-model="especificacion"
-              label="Descripción"
-              placeholder="Ingrese descripción breve"
-              filled
-              dense
-            ></v-text-field>
+            <v-text-field v-model="nombre" label="Producto *" placeholder="Ingrese el nombre del producto" required
+              filled dense :rules="rules"></v-text-field>
+            <v-text-field v-model="id" label="Código *" placeholder="Ingrese el código" filled dense required
+              :rules="rules"></v-text-field>
+            <v-text-field v-model="precio" label="Precio *" placeholder="Ingrese el precio" filled dense required
+              :rules="rules" prefix="$"></v-text-field>
+            <v-file-input v-show="show" accept="image/png, image/jpeg, image/bmp" label="Subir archivo"
+              prepend-icon="mdi-upload" append-outer-icon="mdi-paperclip" filled v-model="foto" show-size dense
+              truncate-length="15" @click:append-outer="show = !show"></v-file-input>
+            <v-text-field v-show="!show" prepend-icon="mdi-paperclip" append-outer-icon="mdi-upload" v-model="fotoURL"
+              label="URL Imagen" placeholder="Ingrese la URL" filled required dense autofocus
+              @click:append-outer="show = !show" clearable></v-text-field>
+            <v-text-field v-model="especificacion" label="Descripción" placeholder="Ingrese descripción breve" filled
+              dense></v-text-field>
             <div class="text-center mt-4">
-              <v-btn
-                color="primary"
-                v-if="!isEdit"
-                class="mr-5"
-                @click="guardar()"
-              >
+              <v-btn color="primary" v-if="!isEdit" class="mr-5" @click="guardar()">
                 Enviar
               </v-btn>
-              <v-btn
-                color="success"
-                v-if="isEdit"
-                class="mr-5"
-                @click="actualizar()"
-              >
+              <v-btn color="success" v-if="isEdit" class="mr-5" @click="actualizar()">
                 Actualizar
               </v-btn>
-              <v-btn
-                color="secondary"
-                v-if="!isEdit"
-                class="ml-5"
-                @click="reset()"
-              >
+              <v-btn color="secondary" v-if="!isEdit" class="ml-5" @click="reset()">
                 Limpiar
               </v-btn>
-              <v-btn
-                color="error"
-                v-if="isEdit"
-                class="ml-5"
-                @click="cancelar()"
-              >
+              <v-btn color="error" v-if="isEdit" class="ml-5" @click="cancelar()">
                 Cancelar
               </v-btn>
             </div>
-            <ConfirMensaje
-              :mensaje="ConfirMensaje"
-              :snackbar="ConfirShow"
-              :close="cerrarMensaje"
-            ></ConfirMensaje>
-            <MensajeError
-              :mensaje="MensajeError"
-              :snackbar="ErrorShow"
-              :close="cerrarError"
-            ></MensajeError>
+            <ConfirMensaje :mensaje="ConfirMensaje" :snackbar="ConfirShow" :close="cerrarMensaje"></ConfirMensaje>
+            <MensajeError :mensaje="MensajeError" :snackbar="ErrorShow" :close="cerrarError"></MensajeError>
           </v-form>
         </v-col>
       </v-row>
@@ -127,7 +51,6 @@ import {
   getProducto,
   updateProducto,
   updateProductoConFoto,
-  insertProductoConFoto,
 } from "../../src/services/Productos.Service";
 import ConfirMensaje from "../../src/components/ConfirMensaje.vue";
 import MensajeError from "../../src/components/MensajeError.vue";
@@ -156,16 +79,21 @@ export default {
     };
   },
   created() {
+    console.log(this.$route.params.id)
     const id = this.$route.params.id;
     if (id != undefined) {
       getProducto(id)
         .then((response) => {
+          console.log(response.data)
           const producto = response.data;
-          this.id = producto.id;
-          this.nombre = producto.nombre;
-          this.precio = producto.precio;
-          this.fotoURL = producto.foto;
-          this.especificacion = producto.especificacion;
+          for (let i = 0; i < producto.length; i++) {
+            this.id = producto[i].id;
+            this.nombre = producto[i].nombre;
+            this.precio = producto[i].precio;
+            this.fotoURL = producto[i].foto;
+            this.especificacion = producto[i].especificacion;
+          }
+
           this.title = "Editar producto";
           this.isEdit = true;
         })
@@ -185,30 +113,18 @@ export default {
         this.abrirError("Ingrese los campos requeridos");
         return;
       }
-      let request = null;
 
-      if (this.foto != null && this.foto != undefined) {
-        const producto = new FormData();
-        producto.append("id", this.id);
-        producto.append("nombre", this.nombre);
-        producto.append("precio", this.precio);
-        producto.append("especificacion", this.especificacion);
-        producto.append("foto", this.foto);
-
-        request = insertProductoConFoto(producto);
-      } else {
-        const producto = {
-          id: this.id,
-          nombre: this.nombre,
-          precio: this.precio,
-          foto: this.fotoURL,
-          especificacion: this.especificacion,
-        };
-        request = insertProducto(producto);
-      }
-      request
-        .then((response) =>
-          this.abrirMensaje("Se ha agregado el producto: " + response.data.id)
+      const producto = {
+        id: this.id,
+        nombre: this.nombre,
+        precio: this.precio,
+        foto: this.fotoURL,
+        especificacion: this.especificacion,
+      };
+      insertProducto(producto)
+        .then(() => {
+          this.abrirMensaje("Se ha agregado el producto: " + producto.nombre)
+        }
         )
         .catch(() => this.abrirError("Error al guardar el producto"));
     },
@@ -232,13 +148,13 @@ export default {
         this.foto != undefined &&
         this.show
       ) {
-          const producto = new FormData();
-          producto.append("id", this.id);
-          producto.append("nombre", this.nombre);
-          producto.append("precio", this.precio);
-          producto.append("especificacion", this.especificacion);
-          producto.append("foto", this.foto);
-          request = updateProductoConFoto(this.name, producto);
+        const producto = new FormData();
+        producto.append("id", this.id);
+        producto.append("nombre", this.nombre);
+        producto.append("precio", this.precio);
+        producto.append("especificacion", this.especificacion);
+        producto.append("foto", this.foto);
+        request = updateProductoConFoto(this.name, producto);
       } else {
         const producto = {
           id: this.id,
@@ -354,9 +270,11 @@ input[type="file"]:hover {
   0% {
     color: rgba(225, 225, 225, 0.75);
   }
+
   50% {
     color: rgba(225, 225, 225, 0.25);
   }
+
   100% {
     color: rgba(225, 225, 225, 0.75);
   }
@@ -366,9 +284,11 @@ input[type="file"]:hover {
   0% {
     color: rgba(225, 225, 225, 0.75);
   }
+
   50% {
     color: rgba(225, 225, 225, 0.25);
   }
+
   100% {
     color: rgba(225, 225, 225, 0.75);
   }
@@ -378,9 +298,11 @@ input[type="file"]:hover {
   0% {
     color: rgba(225, 225, 225, 0.75);
   }
+
   50% {
     color: rgba(225, 225, 225, 0.25);
   }
+
   100% {
     color: rgba(225, 225, 225, 0.75);
   }
@@ -390,9 +312,11 @@ input[type="file"]:hover {
   0% {
     color: rgba(225, 225, 225, 0.75);
   }
+
   50% {
     color: rgba(225, 225, 225, 0.25);
   }
+
   100% {
     color: rgba(225, 225, 225, 0.75);
   }
