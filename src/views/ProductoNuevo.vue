@@ -10,8 +10,7 @@
             <h2 class="text-center mb-5">{{ title }}</h2>
             <v-text-field v-model="nombre" label="Producto *" placeholder="Ingrese el nombre del producto" required
               filled dense :rules="rules"></v-text-field>
-            <v-text-field v-model="id" label="Código *" placeholder="Ingrese el código" filled dense required
-              :rules="rules"></v-text-field>
+            <v-text-field v-model="id" label="Código *" disabled filled dense></v-text-field>
             <v-text-field v-model="precio" label="Precio *" placeholder="Ingrese el precio" filled dense required
               :rules="rules" prefix="$"></v-text-field>
             <v-file-input v-show="show" accept="image/png, image/jpeg, image/bmp" label="Subir archivo"
@@ -50,7 +49,6 @@ import {
   insertProducto,
   getProducto,
   updateProducto,
-  updateProductoConFoto,
 } from "../../src/services/Productos.Service";
 import ConfirMensaje from "../../src/components/ConfirMensaje.vue";
 import MensajeError from "../../src/components/MensajeError.vue";
@@ -84,7 +82,6 @@ export default {
     if (id != undefined) {
       getProducto(id)
         .then((response) => {
-          console.log(response.data)
           const producto = response.data;
           for (let i = 0; i < producto.length; i++) {
             this.id = producto[i].id;
@@ -129,47 +126,19 @@ export default {
         .catch(() => this.abrirError("Error al guardar el producto"));
     },
     actualizar() {
-      if (
-        this.id == undefined ||
-        this.id == "" ||
-        this.nombre == undefined ||
-        this.nombre == "" ||
-        this.precio == undefined ||
-        this.precio == ""
-      ) {
-        this.abrirError("Ingrese los campos requeridos");
-        return;
-      }
-
-      let request = null;
-
-      if (
-        this.foto != null &&
-        this.foto != undefined &&
-        this.show
-      ) {
-        const producto = new FormData();
-        producto.append("id", this.id);
-        producto.append("nombre", this.nombre);
-        producto.append("precio", this.precio);
-        producto.append("especificacion", this.especificacion);
-        producto.append("foto", this.foto);
-        request = updateProductoConFoto(this.name, producto);
-      } else {
-        const producto = {
-          id: this.id,
-          nombre: this.nombre,
-          precio: this.precio,
-          foto: this.fotoURL,
-          especificacion: this.especificacion,
-        };
-        request = updateProducto(this.name, producto);
-      }
-
-      request
-        .then(() =>
-          this.abrirMensaje("Se ha actualizado el producto: " + this.id)
-        )
+      console.log("si entra")
+      const producto = {
+        id: this.id,
+        nombre: this.nombre,
+        precio: this.precio,
+        foto: this.fotoURL,
+        especificacion: this.especificacion,
+      };
+      updateProducto(this.id, producto)
+        .then((response) => {
+          console.log(response.data)
+          this.abrirMensaje("Se ha actualizado el producto: " + this.nombre)
+        })
         .catch(() => this.abrirError("Error al actualizar el producto"));
     },
     abrirMensaje(mensaje) {

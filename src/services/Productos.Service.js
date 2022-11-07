@@ -16,7 +16,7 @@ const insertProductoConFoto = (producto) => httpClient.post(END_POINT, producto,
     }
 }); 
 
-const updateProducto = (id, producto) => httpClient.put(END_POINT+"/ "+ id, producto); 
+const updateProducto = (id, producto) => httpClient.put(END_POINT+"/"+ id, producto); 
 
 const updateProductoConFoto = (id, producto) => httpClient.put(END_POINT + "/" + id + "/foto", producto, {
     headers: {

@@ -187,11 +187,13 @@ export default {
         contraseña: this.contraseña,
       };
       insertUsuario(usuario)
-        .then((response) =>
+        .then(() =>{
           this.abrirMensaje(
-            "Se ha agregado el usuario: " + response.data.usuario
+            "Se ha agregado el usuario: " + usuario.usuario
           )
-        )
+
+
+        })
         .catch(() => this.abrirError("Error al guardar el usuario"));
     },
     reset() {
